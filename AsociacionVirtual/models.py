@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime
 # Create your models here.
 
 class Asociacion(models.Model):
@@ -22,8 +22,19 @@ class Cuota(models.Model):
     cantidad = models.DecimalField( max_digits=10, decimal_places=2)
     socio = models.ForeignKey(Socio , on_delete=models.CASCADE)
     
+class Material(models.Model):
+    TIPOS = (
+    ('J', 'Juego'),
+    ('U', 'Utensilio'),
+    ('C', 'Comida'),
+    )
+    nombre = models.CharField(max_length=50)
+    tipo = models.CharField(max_length=1, choices=TIPOS)
+    nombre = models.CharField(max_length=255)
+    foto = models.ImageField(upload_to='materiales')
+    
 class Stock(models.Model):
-    socio = models.ForeignKey(Material , on_delete=models.CASCADE)
+    material = models.ForeignKey(Material, on_delete=models.CASCADE)
     ESTADOS = (
         ('N', 'Nuevo'),
         ('R', 'Roto'),
@@ -34,22 +45,21 @@ class Stock(models.Model):
     precio = models.DecimalField( max_digits=10, decimal_places=2)
     foto = models.ImageField(upload_to='stock')
     
+class Evento(models.Model):
+    nombre = models.CharField(max_length=50)
+    fecha_alta = models.DateTimeField(blank=True)
+    fecha_baja = models.DateTimeField(blank=True)
+    coste = models.DecimalField( max_digits=10, decimal_places=2)
+    beneficio = models.DecimalField( max_digits=10, decimal_places=2)
+    participantes = models.ManyToManyField(Socio)
+    
 class Alquila(models.Model):
     """
     stock - socio n n 
     """
-    pass
-class Juego(models.Model):
-    pass
-
-class Material(models.Model):
-    pass
-    
-class Evento(models.Model):
-    pass
-
-class Participa(model.Model):
-    """
-    evento - socio n n
-    """
-    pass
+    fecha_alquiler = models.DateTimeField(default=datetime.now, )
+    material = models.ForeignKey(Stock,on_delete=models.CASCADE)
+    socio = models.ForeignKey(Socio,on_delete=models.CASCADE)
+    fecha_devolucion = models.DateTimeField(blank=True)
+    class Meta:
+        unique_together = ('socio', 'material','fecha_alquiler')
