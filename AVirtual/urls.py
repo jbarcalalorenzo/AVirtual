@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-
+from AsociacionVirtual import views as asoci
 urlpatterns = [
-    url(r'^AsociacionVirtual/', include('AsociacionVirtual.urls')),
+    url(r'^AsociacionVirtual/', include('AsociacionVirtual.urls' )),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls')),
-    url(r'^report_builder/', include('report_builder.urls'))
+    url(r'^report_builder/', include('report_builder.urls')),
+    url(r'^$',asoci.IndexView)
 ]
