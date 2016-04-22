@@ -4,10 +4,13 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import RegistroUserForm
 from .models import UserProfile
+
+from AsociacionVirtual.views import IndexView as index
 
 
 def registro_usuario_view(request):
@@ -38,7 +41,7 @@ def registro_usuario_view(request):
             user_profile.user = user_model
             # Por ultimo, guardamos tambien el objeto UserProfile
             user_profile.save()
-            # Ahora, redireccionamos a la pagina accounts/registro.html
+            # Ahora, redireccionamos a la pagina accounts/registro_ok.html
             # Pero lo hacemos con un redirect.
             return redirect('AsociacionVirtual.registro_ok', kwargs={'username': username})
     else:
@@ -47,18 +50,18 @@ def registro_usuario_view(request):
     # Creamos el contexto
     context = {'form': form}
     # Y mostramos los datos
-    return render(request, 'registro.html', context)
+    return render(request, '/registro.html', context)
 
 
-@login_required
+@login_required()
 def index_view(request):
-    return render(request, '/index.html')
+    return render(request, 'base.html')#Lo mandamos a la pagina de su asociacion
 
 
 def login_view(request):
     # Si el usuario esta ya logueado, lo redireccionamos a index_view
     if request.user.is_authenticated():
-        return redirect(reverse('AsociacionVirtual.index_view'))
+        return redirect(reverse('accounts.index'))  # Si ya esta logeado lo mandamos a la pantalla de su asociacion
 
     mensaje = ''
     if request.method == 'POST':
@@ -68,10 +71,16 @@ def login_view(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect(reverse('accounts.index'))
+                return redirect(reverse(index))  # Redireccionamos con un reverse para mantener el user
             else:
                 # Redireccionar informando que la cuenta esta inactiva
                 # Lo dejo como ejercicio al lector :)
                 pass
         mensaje = 'Nombre de usuario o contraseña no valido'
-    return render(request, 'index.html', {'mensaje': mensaje})
+    return render(request, 'login.html', {'mensaje': mensaje})
+
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Te has desconectado con exito.')
+    return redirect(reverse('accounts.login'))
