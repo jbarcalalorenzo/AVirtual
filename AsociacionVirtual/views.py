@@ -7,7 +7,13 @@ from django.views import generic
 
 
 def IndexView(request):
-    return render(request, 'base.html')#Esto sera la vista de la app principal(app:OpenSociety)
+    return render(request, 'Asociacion/index.html')#Esto sera la vista de la app principal(app:OpenSociety)
 
 def registro_ok_View(request):
-    return render(request, 'AsociacinVirtual/index.html')#El usuario se logeo correctamente y se redirecciona a la pantlla de su asocicacion
+    return render(request, 'Asociacion/index.html')#El usuario se logeo correctamente y se redirecciona a la pantlla de su asocicacion
+
+# Creamos la vista
+class AboutView(generic.View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'Asociacion/about.html', name="asociacion.about")

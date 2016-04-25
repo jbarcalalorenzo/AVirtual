@@ -6,4 +6,5 @@ from . import views
 app_name = 'asociacion'
 urlpatterns = [
     url(r'^$', views.IndexView, name='index'),
+    url(regex=r'^about/$', view=views.AboutView.as_view(), name='about'),
 ]

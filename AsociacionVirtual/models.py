@@ -12,7 +12,7 @@ class Socio(models.Model):
     nombre = models.CharField(max_length=255)
     direccion = models.CharField(max_length=30)
     fecha_alta = models.DateTimeField(default=datetime.now, blank=False)
-    fecha_baja = models.DateTimeField(blank=True)
+    fecha_baja = models.DateTimeField(blank=True,null=True)
     mail = models.CharField(max_length=255)
     telefono = models.CharField(max_length=12)
     foto = models.ImageField(upload_to='socios')

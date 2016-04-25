@@ -43,14 +43,14 @@ def registro_usuario_view(request):
             user_profile.save()
             # Ahora, redireccionamos a la pagina accounts/registro_ok.html
             # Pero lo hacemos con un redirect.
-            return redirect('AsociacionVirtual.registro_ok', kwargs={'username': username})
+            return redirect('registro.ok', kwargs={'username': username})
     else:
         # Si el mthod es GET, instanciamos un objeto RegistroUserForm vacio
         form = RegistroUserForm()
     # Creamos el contexto
     context = {'form': form}
     # Y mostramos los datos
-    return render(request, '/registro.html', context)
+    return render(request, 'accounts/registro.html', context)
 
 
 @login_required()
@@ -61,7 +61,7 @@ def index_view(request):
 def login_view(request):
     # Si el usuario esta ya logueado, lo redireccionamos a index_view
     if request.user.is_authenticated():
-        return redirect(reverse('accounts.index'))  # Si ya esta logeado lo mandamos a la pantalla de su asociacion
+        return redirect(reverse('accounts:index'))  # Si ya esta logeado lo mandamos a la pantalla de su asociacion
 
     mensaje = ''
     if request.method == 'POST':
@@ -77,10 +77,10 @@ def login_view(request):
                 # Lo dejo como ejercicio al lector :)
                 pass
         mensaje = 'Nombre de usuario o contraseña no valido'
-    return render(request, 'login.html', {'mensaje': mensaje})
+    return render(request, 'accounts/login.html', {'mensaje': mensaje})
 
 
 def logout_view(request):
     logout(request)
     messages.success(request, 'Te has desconectado con exito.')
-    return redirect(reverse('accounts.login'))
+    return redirect(reverse('login'))
