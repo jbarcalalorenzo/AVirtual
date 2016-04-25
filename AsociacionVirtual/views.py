@@ -16,4 +16,4 @@ def registro_ok_View(request):
 class AboutView(generic.View):
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'Asociacion/about.html', name="asociacion.about")
+        return render(request, 'Asociacion/about.html')

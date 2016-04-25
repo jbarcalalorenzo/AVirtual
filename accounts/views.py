@@ -10,9 +10,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegistroUserForm
 from .models import UserProfile
 
-from AsociacionVirtual.views import IndexView as index
-
-
 def registro_usuario_view(request):
     if request.method == 'POST':
         # Si el method es post, obtenemos los datos del formulario
@@ -55,7 +52,7 @@ def registro_usuario_view(request):
 
 @login_required()
 def index_view(request):
-    return render(request, 'base.html')#Lo mandamos a la pagina de su asociacion
+    return render(request, 'accounts/index.html')#Lo mandamos a la pagina de su asociacion
 
 
 def login_view(request):
@@ -71,7 +68,7 @@ def login_view(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect(reverse(index))  # Redireccionamos con un reverse para mantener el user
+                return redirect(reverse('accounts:index'))  # Redireccionamos con un reverse para mantener el user
             else:
                 # Redireccionar informando que la cuenta esta inactiva
                 # Lo dejo como ejercicio al lector :)
