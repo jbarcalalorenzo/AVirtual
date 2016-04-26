@@ -4,4 +4,8 @@
 
 {% block content %}
     <h2 class="page-header">Test</h2>
+    <div class="container">
+        {% include "_messages.html" %}
+        {% block content %}{% endblock content %}
+    </div><!-- /.container -->
 {% endblock content %}

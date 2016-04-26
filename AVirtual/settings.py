@@ -133,3 +133,10 @@ STATICFILES_DIRS = (
 #Url para realizar el login de usuarios
 LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/accounts/logout/'
+
+#Datos de contacto
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'usuario@gmail.com'
+EMAIL_HOST_PASSWORD = 'contraseña'

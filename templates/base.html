@@ -34,7 +34,7 @@
             <li><a href="/admin">Panel de Gestión</a></li>
             {% endif %}
             <li><a href="{% url 'asociacion:about' %}">Sobre nosotros</a></li>
-            <li><a href="#contact">Contacto</a></li>
+            <li><a href="{% url 'asociacion:contact' %}">Contacto</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
               {% if user.is_authenticated %}
@@ -48,14 +48,9 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
     <div class="container">
-
-      <div class="starter-template">
-        {% include '_messages.html' %}
+        {% include "_messages.html" %}
         {% block content %}{% endblock content %}
-      </div>
-
     </div><!-- /.container -->
 
     <script src="{% static 'jquery/jquery.js' %}"></script>
