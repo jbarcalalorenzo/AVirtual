@@ -13,48 +13,65 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Asociación Virutal</a>
+            {% if user.is_authenticated %}
+            <button href="#menu-toggle" class="slidebar-toggle" id="menu-toggle">
+                <span class="sr-only">Toggle sidebar</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {% endif %}
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Asociación Virutal</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'accounts:index' %}">Home</a></li>
-            {% if not user.is_authenticated %}
-            <li><a href="{% url 'accounts:registro' %}">Registrarse</a></li>
-            {% endif %}
-            {% if user.is_authenticated %}
-            <li><a href="/admin">Panel de Gestión</a></li>
-            {% endif %}
-            <li><a href="{% url 'asociacion:about' %}">Sobre nosotros</a></li>
-            <li><a href="{% url 'asociacion:contact' %}">Contacto</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-              {% if user.is_authenticated %}
-                <li><a href="{% url 'accounts:index' %}">{{ user.username }}</a></li>
-                <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
-              {% else %}
-                <li><a href="{% url 'accounts:registro' %}">Registro</a></li>
-                <li><a href="{% url 'accounts:login' %}">Login</a></li>
-              {% endif %}
-          </ul>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'accounts:index' %}">Home</a></li>
+                {% if not user.is_authenticated %}
+                    <li><a href="{% url 'accounts:registro' %}">Registrarse</a></li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <li><a href="/admin">Panel de Gestión</a></li>
+                {% endif %}
+                <li><a href="{% url 'asociacion:about' %}">Sobre nosotros</a></li>
+                <li><a href="{% url 'asociacion:contact' %}">Contacto</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'accounts:index' %}">{{ user.username }}</a></li>
+                    <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'accounts:registro' %}">Registro</a></li>
+                    <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                {% endif %}
+            </ul>
         </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-    <div class="container">
-        {% include "_messages.html" %}
-        {% block content %}{% endblock content %}
-    </div><!-- /.container -->
+    </div>
+</nav>
+<div id="wrapper">
+{% if user.is_authenticated %}
+    {% include "Asociacion/_sidebar.html" %}
+{% endif %}
+</div>
 
-    <script src="{% static 'jquery/jquery.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+<div class="container">
+    {% include "_messages.html" %}
+    {% block content %}{% endblock content %}
+</div><!-- /.container -->
+</div>
+<script src="{% static 'jquery/jquery-1.12.2.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+{% if user.is_authenticated %}
+<script src="{% static 'js/main.js' %}"></script>
+{% endif %}
 </body>
 </html>

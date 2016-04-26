@@ -32,7 +32,7 @@ def send_email_contact(email_usuario, subject, body):
 class ContactView(generic.FormView):
 
     template_name = 'Asociacion/contact.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('contact')
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
