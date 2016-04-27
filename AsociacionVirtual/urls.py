@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^perfil/', views.IndexView, name='index'),
     url(r'^about/', view=views.AboutView.as_view(), name='about'),
     url(r'^contact/', view=views.ContactView.as_view(), name='contact'),
-    url(r'^resumen/', views.get_impagos,name='resumen')
+    url(r'^resumen/', views.get_impagos,name='resumen'),
+    url(r'^tesoreria/', views.get_cuentas, name='tesoreria')
 ]

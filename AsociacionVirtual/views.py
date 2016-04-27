@@ -59,3 +59,8 @@ def get_impagos(request):
     queryset = models.Socio.objects.all()
     table = tables.SocioTable(queryset)
     return render(request, 'Asociacion/summary-info.html', {'table': table})
+
+def get_cuentas(request):
+    queryset = models.Cuentas.objects.all()
+    table = tables.CuentasTable(queryset)
+    return render(request, 'Asociacion/_tesoreria.html', {'table': table})

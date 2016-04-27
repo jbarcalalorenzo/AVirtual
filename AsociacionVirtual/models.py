@@ -74,3 +74,10 @@ class Alquila(models.Model):
 
     class Meta:
         unique_together = ('socio', 'material', 'fecha_alquiler')
+
+class Cuentas(models.Model):
+    """
+    libro de cuentas de cada asociación
+    """
+    nombre = models.ForeignKey(Material, on_delete=models.CASCADE)
+    pass
