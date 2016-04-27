@@ -1,22 +1,32 @@
-.glyphicon-th-list {
-    color: #2aabd2;
-}
 
-@import "http://designmodo.github.io/Flat-UI/dist/css/flat-ui.min.css";
-@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
-@import "https://daneden.github.io/animate.css/animate.min.css";
 /*-------------------------------*/
 /*           VARIABLES           */
 /*-------------------------------*/
 body {
     position: relative;
     overflow-x: hidden;
+
+}
+
+#top_div {
+    position:fixed; width:25%; height:25%; top:0;   left:0;
+}
+
+#mid1_div {
+    position:fixed; width:25%; height:25%; top:0;   left:50%;
+}
+
+#mid2_div {
+   position:fixed; width:25%; height:25%; top:50%; left:0;
+}
+
+#bottom_div {
+    position:fixed; width:25%; height:25%; top:50%; left:50%;
 }
 
 body,
 html {
     height: 100%;
-    background-color: #583e7e;
 }
 
 .nav .open > a {

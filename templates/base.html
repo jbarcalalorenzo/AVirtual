@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
-
+<div id="wrapper">
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -49,21 +49,18 @@
     </div>
 </nav>
 
-<div id="wrapper">
+
     {% if user.is_authenticated %}
         {% include "Asociacion/_sidebar.html" %}
     {% endif %}
-</div>
+
 <div id="page-content-wrapper">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                {% include "_messages.html" %}
-                {% block content %}{% endblock content %}
-            </div>
-        </div>
+        {% include "_messages.html" %}
+        {% block content %}{% endblock content %}
     </div>
 </div><!-- /.container -->
+</div>
 
 
 <script src="{% static 'jquery/jquery-1.12.2.min.js' %}"></script>
