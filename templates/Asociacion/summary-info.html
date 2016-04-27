@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load django_tables2 %}
+
+{% block title %}Resumen de Asociación{% endblock title %}
+
+{% block content %}
+    <div id="socios_impago">
+        {% render_table table %}
+    </div>
+{#    <div id="finanazas">#}
+{#        {% render_table finanzas %}#}
+{#    </div>#}
+{#    <div id="tabla"></div>#}
+{% endblock content %}

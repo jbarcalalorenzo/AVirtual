@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
 from django.core.mail import send_mail
 from .forms import ContactUsuarioAnonimoForm, ContactUsuarioLoginForm
+from AsociacionVirtual import models
+from AsociacionVirtual import tables
 # Create your views here.
 
 
@@ -52,3 +54,8 @@ class ContactView(generic.FormView):
             send_email_contact(email_usuario, subject, body)
         messages.success(self.request, 'Email enviado con exito')
         return super().form_valid(form)
+
+def get_impagos(request):
+    queryset = models.Socio.objects.all()
+    table = tables.SocioTable(queryset)
+    return render(request, 'Asociacion/summary-info.html', {'table': table})
