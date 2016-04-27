@@ -64,7 +64,11 @@ html {
     margin-right: -220px;
     position: absolute;
 }
-
+.page-header {
+    padding-bottom: 9px;
+    margin: 40px 0 20px;
+    border-bottom: 1px solid #777;
+}
 #sidebar-wrapper {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -353,14 +357,14 @@ html {
 /* SOME DEMO STYLES - NOT REQUIRED */
 body,
 html {
-    background-color: #583e7e;
+    background-color: #fcf9f3;
 }
 
 body h1,
 body h2,
 body h3,
 body h4 {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(84, 84, 84, 0.9);
 }
 
 body p,
@@ -369,7 +373,7 @@ body blockquote {
 }
 
 body a {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(24, 24, 24, 0.8);
     text-decoration: underline;
 }
 
