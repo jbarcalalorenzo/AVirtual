@@ -380,6 +380,9 @@ body a {
 body a:hover {
     color: #fff;
 }
+label{
+     color: rgba(84, 84, 84, 0.9);
+}
 /*------------------------------------------------------------------*/
 .shadow-z-1 {
   -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);

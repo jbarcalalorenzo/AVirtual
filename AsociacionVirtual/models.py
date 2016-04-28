@@ -42,12 +42,12 @@ class Material(models.Model):
 
 
 class Stock(models.Model):
-    material = models.ForeignKey(Material, on_delete=models.CASCADE)
     ESTADOS = (
         ('N', 'Nuevo'),
         ('R', 'Roto'),
         ('S', 'Semi nuevo'),
     )
+    material = models.ForeignKey(Material, on_delete=models.CASCADE)
     estado = models.CharField(max_length=1, choices=ESTADOS)
     fecha_alta = models.DateTimeField(default=datetime.now, blank=False)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
@@ -67,7 +67,7 @@ class Alquila(models.Model):
     """
     stock - socio n n 
     """
-    fecha_alquiler = models.DateTimeField(default=datetime.now, )
+    fecha_alquiler = models.DateTimeField(default=datetime.now)
     material = models.ForeignKey(Stock, on_delete=models.CASCADE)
     socio = models.ForeignKey(Socio, on_delete=models.CASCADE)
     fecha_devolucion = models.DateTimeField(blank=True)
@@ -79,5 +79,7 @@ class Cuentas(models.Model):
     """
     libro de cuentas de cada asociación
     """
-    nombre = models.ForeignKey(Material, on_delete=models.CASCADE)
-    pass
+    nombre = models.ForeignKey(Stock, on_delete=models.CASCADE,related_name="nombre")
+    fecha_alta = models.ForeignKey(Stock, on_delete=models.CASCADE,related_name="fecha",blank=False,default="01/01/2000")
+    precio = models.ForeignKey(Stock,on_delete=models.CASCADE,related_name="coste")
+
