@@ -11,7 +11,7 @@ class Cliente(models.Model):
     password = models.CharField(max_length=255)
     fecha_alta = models.DateTimeField(default=datetime.now, blank=False)
     fecha_baja = models.DateTimeField(blank=True, null=True)
-    
+
 class Producto(models.Model):
     TIPOS = (
         ('A', 'Aplicacion'),
@@ -22,18 +22,32 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2,blank=False)
     duracion = models.IntegerField()# en... meses? 
     
-class Compra(models.Model):
+class App(models.Model): #compra 
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     fecha_compra = models.DateTimeField(default=datetime.now, blank=False)
     precio = models.DecimalField(max_digits=10, decimal_places=2,blank=False)
     fecha_finalizacion = models.DateTimeField(blank=False)
-    
-class Historial(models.Model):
+    carpeta = models.CharField(max_length=20)
+    database = models.CharField(max_length=20)
+    url = models.CharField(max_length=20)
+
+class Plugin(models.Model): #compra 
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    app =  models.ForeignKey(App, on_delete=models.CASCADE)
     fecha_compra = models.DateTimeField(default=datetime.now, blank=False)
     precio = models.DecimalField(max_digits=10, decimal_places=2,blank=False)
+    fecha_finalizacion = models.DateTimeField(blank=False)
+
+   
+class Historial(models.Model):
+    cliente = models.ForeignKey(Cliente)
+    producto = models.ForeignKey(Producto)
+    app =  models.ForeignKey(App)
+    fecha_compra = models.DateTimeField(default=datetime.now, blank=False)
+    precio = models.DecimalField(max_digits=10, decimal_places=2,blank=False)
+    fecha_finalizacion = models.DateTimeField(blank=False)
 
 class Admin(models.Model):
     user = models.CharField(max_length=255)
