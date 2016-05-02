@@ -44,6 +44,7 @@ class Historial(models.Model):
     cliente = models.ForeignKey(Cliente)
     producto = models.ForeignKey(Producto)
     app =  models.ForeignKey(App)
+    plugin =  models.ForeignKey(Plugin)
     fecha_compra = models.DateTimeField(default=datetime.now, blank=False)
     precio = models.DecimalField(max_digits=10, decimal_places=2,blank=False)
     fecha_finalizacion = models.DateTimeField(blank=False)
