@@ -33,7 +33,6 @@ class App(models.Model): #compra
     url = models.CharField(max_length=20)
 
 class Plugin(models.Model): #compra 
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     app =  models.ForeignKey(App, on_delete=models.CASCADE)
     fecha_compra = models.DateTimeField(default=datetime.now, blank=False)
