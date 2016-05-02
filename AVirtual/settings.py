@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 
     #Apps adicionales
     "accounts",
-    'report_builder',
     'AsociacionVirtual',
     'OpenSociety'
 ]

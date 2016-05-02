@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Asociacion,Socio,Cuota,Stock,Material,Evento
+from .models import Asociacion,Socio,Cuota,Stock,Material,Evento,Contacto
 # Register your models here.
 class SocioAdmin(admin.ModelAdmin):
 
@@ -18,7 +18,7 @@ class MaterialAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'tipo', 'foto')
 
 admin.site.register(Material, MaterialAdmin)
-
+admin.site.register(Contacto)
 admin.site.register(Asociacion)
 admin.site.register(Stock)
 admin.site.register(Evento)

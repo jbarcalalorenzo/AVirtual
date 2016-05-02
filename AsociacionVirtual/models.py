@@ -81,11 +81,3 @@ class Alquila(models.Model):
 
     class Meta:
         unique_together = ('socio', 'material', 'fecha_alquiler')
-
-class Cuentas(models.Model):
-    """
-    libro de cuentas de cada asociación
-    """
-    nombre = models.ForeignKey(Stock, on_delete=models.CASCADE,related_name="nombre")
-    fecha_alta = models.ForeignKey(Stock, on_delete=models.CASCADE,related_name="fecha",blank=False,default="01/01/2000")
-    precio = models.ForeignKey(Stock,on_delete=models.CASCADE,related_name="coste")

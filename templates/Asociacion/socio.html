@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Perfil de socio{% endblock title %}
+
+{% block content %}
+    <div class="page-header"><h2>Perfil de {{ socio.nombre }}</h2></div>
+    <div>
+        <img src="{{ MEDIA_URL }}{{ user.foto }}" alt="Imagen de {{ user.nombre }}"/>
+    </div>
+{% endblock content %}

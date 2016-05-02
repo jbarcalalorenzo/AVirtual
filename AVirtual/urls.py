@@ -20,6 +20,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls',namespace='accounts')),
     url(r'^AsociacionVirtual/', include('AsociacionVirtual.urls',  namespace='asociacion')),
-    url(r'^report_builder/', include('report_builder.urls')),
     url(r'^$', include('accounts.urls'))
 ]
