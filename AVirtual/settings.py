@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "accounts",
     'report_builder',
     'AsociacionVirtual',
+    'OpenSociety'
 ]
 
 MIDDLEWARE_CLASSES = [
