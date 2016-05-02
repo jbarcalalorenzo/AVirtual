@@ -52,7 +52,14 @@ class Stock(models.Model):
     fecha_alta = models.DateTimeField(default=datetime.now, blank=False)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     foto = models.ImageField(upload_to='stock')
-
+    
+class Contacto(models.Model):
+    nombre = models.CharField(max_length=100)
+    desc = models.CharField(max_length=255)
+    direccion = models.CharField(max_length=30)
+    fecha_alta = models.DateTimeField(default=datetime.now, blank=False)
+    telefono = models.CharField(max_length=30)
+    mail = models.CharField(max_length=100)
 
 class Evento(models.Model):
     nombre = models.CharField(max_length=50)
@@ -61,7 +68,7 @@ class Evento(models.Model):
     coste = models.DecimalField(max_digits=10, decimal_places=2)
     beneficio = models.DecimalField(max_digits=10, decimal_places=2)
     participantes = models.ManyToManyField(Socio)
-
+    contactos = models.ManyToManyField(Contacto)
 
 class Alquila(models.Model):
     """
@@ -82,4 +89,3 @@ class Cuentas(models.Model):
     nombre = models.ForeignKey(Stock, on_delete=models.CASCADE,related_name="nombre")
     fecha_alta = models.ForeignKey(Stock, on_delete=models.CASCADE,related_name="fecha",blank=False,default="01/01/2000")
     precio = models.ForeignKey(Stock,on_delete=models.CASCADE,related_name="coste")
-
