@@ -7,6 +7,12 @@ class SocioTable(tables.Table):
         fields = ("nombre","mail","telefono")
         template = "custom_table.html"
 
+class DocsTable(tables.Table):
+    class Meta:
+        model = models.Documentos
+        fields = ("nombre", "tipo", "fecha_alta","link")
+        template = "custom_table.html"
+
 # class GastosTable(tables.Table):
 #     class Meta:
 #         model = models.Cuentas

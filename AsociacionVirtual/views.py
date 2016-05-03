@@ -1,25 +1,38 @@
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from django.views import generic
-from django.contrib import messages
-from django.core.urlresolvers import reverse_lazy
-from django.core.mail import send_mail
-from .forms import ContactUsuarioAnonimoForm, ContactUsuarioLoginForm
+
 from AsociacionVirtual import models
 from AsociacionVirtual import tables
+from .forms import ContactUsuarioAnonimoForm, ContactUsuarioLoginForm
+
+
 # Create your views here.
 
 
 def IndexView(request):
-    return render(request, 'Asociacion/index.html')#Esto sera la vista de la app principal(app:OpenSociety)
+    return render(request, 'Asociacion/index.html')  # Esto sera la vista de la app principal(app:OpenSociety)
+
 
 def registro_ok_View(request):
-    return render(request, 'Asociacion/index.html')#El usuario se logeo correctamente y se redirecciona a la pantlla de su asocicacion
+    return render(request,
+                  'Asociacion/index.html')  # El usuario se logeo correctamente y se redirecciona a la pantlla de su asocicacion
+
 
 # Creamos la vista
 class AboutView(generic.View):
-
     def get(self, request, *args, **kwargs):
         return render(request, 'Asociacion/about.html')
+
+
+class DocsView(generic.View):
+    def get(self, request, *args, **kwargs):
+        docs = models.Documentos.objects.all()
+        table = tables.DocsTable(docs)
+        return render(request, 'Asociacion/documentos.html',{'table': table})
+
 
 # Creamos una función para el envió de email
 # (es muy simple, solo para demostrar como enviar un email)
@@ -31,8 +44,9 @@ def send_email_contact(email_usuario, subject, body):
         from_email='contact@example.com',
         recipient_list=['usuario@example.com']
     )
-class ContactView(generic.FormView):
 
+
+class ContactView(generic.FormView):
     template_name = 'Asociacion/contact.html'
     success_url = reverse_lazy('contact')
 
@@ -55,12 +69,26 @@ class ContactView(generic.FormView):
         messages.success(self.request, 'Email enviado con exito')
         return super().form_valid(form)
 
+
 def get_impagos(request):
     queryset = models.Socio.objects.all()
     table = tables.SocioTable(queryset)
     return render(request, 'Asociacion/summary-info.html', {'table': table})
 
+
 def get_cuentas(request):
     queryset = models.Cuentas.objects.all()
     table = tables.CuentasTable(queryset)
     return render(request, 'Asociacion/_tesoreria.html', {'table': table})
+
+
+def search(request):
+    if 'value' in request.GET and request.GET['value']:
+        q = request.GET['value']
+        socios = models.Documentos.objects.filter(id__icontains=q)
+        table = tables.DocsTable(socios)
+        return render(request, 'search_results.html', {'table': table, 'query': q})
+    else:
+        socios = models.Socio.objects.all()
+        table = tables.DocsTable(socios)
+        return render(request, 'search_results.html', {'table': table})

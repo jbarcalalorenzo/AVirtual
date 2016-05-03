@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load django_tables2 %}
+{% block title %}Documentacion{% endblock title %}
+
+{% block content %}
+    <h2 class="page-header">Listado de Documentos</h2>
+    <form action="{% url 'asociacion:buscar' %}" method="get">
+        <input type="text" name="value">
+        <input type="submit" value="Buscar">
+    </form>
+    <div id="docs">
+        {% render_table table %}
+    </div>
+{% endblock content %}

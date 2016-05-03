@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from django.conf import settings
 from django.db import models
 
 
@@ -20,7 +20,7 @@ class Socio(models.Model):
     fecha_baja = models.DateTimeField(blank=True, null=True)
     mail = models.CharField(max_length=255)
     telefono = models.CharField(max_length=12)
-    foto = models.ImageField(upload_to='socios')
+    foto = models.ImageField(upload_to='media/socios/')
 
 
 class Cuota(models.Model):
@@ -38,7 +38,7 @@ class Material(models.Model):
     nombre = models.CharField(max_length=50)
     tipo = models.CharField(max_length=1, choices=TIPOS)
     nombre = models.CharField(max_length=255)
-    foto = models.ImageField(upload_to='materiales')
+    foto = models.ImageField(upload_to='media/materiales/')
 
 
 class Stock(models.Model):
@@ -51,7 +51,7 @@ class Stock(models.Model):
     estado = models.CharField(max_length=1, choices=ESTADOS)
     fecha_alta = models.DateTimeField(default=datetime.now, blank=False)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    foto = models.ImageField(upload_to='stock')
+    foto = models.ImageField(upload_to='media/stock/')
     
 class Contacto(models.Model):
     nombre = models.CharField(max_length=100)
@@ -81,3 +81,15 @@ class Alquila(models.Model):
 
     class Meta:
         unique_together = ('socio', 'material', 'fecha_alquiler')
+
+class Documentos(models.Model):
+    TIPOS = (
+        ('A', 'Alta'),
+        ('B', 'Baja'),
+        ('AY','Ayudas'),
+    )
+    id = models.OneToOneField(Socio,primary_key=True)
+    nombre = models.CharField(max_length=255,blank=False,)
+    tipo = models.CharField(max_length=2, choices=TIPOS)
+    fecha_alta = models.DateTimeField(default=datetime.now, blank=False)
+    link = models.FilePathField(path=settings.MEDIA_ROOT)

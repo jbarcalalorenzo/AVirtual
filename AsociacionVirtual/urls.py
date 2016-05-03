@@ -9,5 +9,7 @@ urlpatterns = [
     url(r'^about/', view=views.AboutView.as_view(), name='about'),
     url(r'^contact/', view=views.ContactView.as_view(), name='contact'),
     url(r'^resumen/', views.get_impagos,name='resumen'),
-    url(r'^tesoreria/', views.get_cuentas, name='tesoreria')
+    url(r'^tesoreria/', views.get_cuentas, name='tesoreria'),
+    url(r'^buscar/', views.search, name='buscar'),
+    url(r'^documentos',view=views.DocsView.as_view(),name='documentos')
 ]
