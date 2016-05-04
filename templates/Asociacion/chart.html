@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Charts{% endblock title %}
+
+{% block content %}
+    <div id="chart-impagos">{{ chart.as_html }} </div>
+    <div id="chart-asociacion">{{ chart.as_html }} </div>
+    <div id="chart-eventos">{{ chart.as_html }} </div>
+{% endblock content %}

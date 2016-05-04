@@ -1,6 +1,8 @@
 from datetime import date
 from io import BytesIO
 
+from django.db.models import Count
+from graphos.renderers import gchart
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse_lazy
@@ -8,11 +10,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import RequestContext
 from django.views import generic
-
+from graphos.sources.model import ModelDataSource
 from AsociacionVirtual import models
 from AsociacionVirtual import tables
 from AsociacionVirtual.report import PdfPrint
-from django.views.decorators.csrf import csrf_exempt
 from .forms import ContactUsuarioAnonimoForm, ContactUsuarioLoginForm
 
 
@@ -123,3 +124,16 @@ def socios_report(request,tipo):
             response.write(pdf)
             return response
         else:  return render(request, 'Asociacion/error.html')
+
+def get_charts(request):
+    data = [
+        ['Year', 'Sales', 'Expenses'],
+        ['Esto', 1000, 400],
+        ['es', 1170, 460],
+        ['esparta', 660, 1120],
+        ['yeah', 1030, 540]
+    ]
+    queryset = models.Socio.objects.all().values("nombre").annotate(total=Count('nombre')).order_by('fecha_alta')
+    datasource = ModelDataSource(queryset,fields=['total'])
+    chart = gchart.PieChart(datasource,html_id="pie_chart")
+    return  render(request,'Asociacion/chart.html',{'chart':chart})
