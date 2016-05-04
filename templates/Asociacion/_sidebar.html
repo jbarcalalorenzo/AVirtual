@@ -10,10 +10,10 @@
                     class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-header"></li>
-                <li><a data-href="{% url 'asociacion:informes' %}" id="inf_cuotas">Impago cuotas</a></li>
-                <li><a data-href="{% url 'asociacion:informes' %}" id="inf_eventos">Eventos</a></li>
-                <li><a data-href="{% url 'asociacion:informes' %}" id="inf_material">Material prestado</a></li>
-                <li><a data-href="#">Ingresos</a></li>
+                <li><a href="{% url 'asociacion:informes' 'Socio' %}" id="inf_cuotas">Impago cuotas</a></li>
+                <li><a href="{% url 'asociacion:informes' 'Evento'%}" id="inf_eventos">Eventos</a></li>
+                <li><a href="{% url 'asociacion:informes' 'Alquiler'%}" id="inf_material">Material prestado</a></li>
+                <li><a href="#">Ingresos</a></li>
             </ul>
         </li>
         <li class="dropdown">

@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'^tesoreria/', views.get_cuentas, name='tesoreria'),
     url(r'^buscar/', views.search, name='buscar'),
     url(r'^documentos',view=views.DocsView.as_view(),name='documentos'),
-    url(r'^informes', views.socios_report, name="informes")
+    url(r'^informes(?P<tipo>\w+)/$', views.socios_report, name="informes")
 ]

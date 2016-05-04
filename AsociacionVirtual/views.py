@@ -100,9 +100,9 @@ def search(request):
         table = tables.DocsTable(socios)
         return render(request, 'search_results.html', {'table': table})
 
-def socios_report(request):
-    if request.method == 'POST':
-        tipo = request.POST.get('tipo')
+def socios_report(request,tipo):
+    if request.method == 'GET':
+        tipo = tipo
         if tipo is not None:
             response = HttpResponse(content_type='application/pdf')
             today = date.today()
