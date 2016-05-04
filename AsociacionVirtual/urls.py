@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^resumen/', views.get_impagos,name='resumen'),
     url(r'^tesoreria/', views.get_cuentas, name='tesoreria'),
     url(r'^buscar/', views.search, name='buscar'),
-    url(r'^documentos',view=views.DocsView.as_view(),name='documentos')
+    url(r'^documentos',view=views.DocsView.as_view(),name='documentos'),
+    url(r'^informes', views.socios_report, name="informes")
 ]

@@ -78,3 +78,49 @@ $(document).ready(function () {
     }
 
 })(jQuery.fn.removeClass);
+
+$("#inf_cuotas").on("click", function () {
+    $.ajax({
+        url : $('#inf_eventos').attr('data-href'), // the endpoint
+        type : "POST", // http method
+        data : { tipo:'Socio',csrfmiddlewaretoken:getCookie('csrftoken')}, // data sent with the post request
+    });
+});
+
+$("#inf_eventos").on("click", function () {
+    $.ajax({
+        type: "POST",
+        url: $('#inf_eventos').attr('data-href'),  // or just url: "/my-url/path/"
+        data: {
+            tipo: 'Evento',
+            csrfmiddlewaretoken:getCookie('csrftoken')
+        }
+    });
+});
+
+$("#inf_material").on("click", function () {
+    $.ajax({
+        type: "POST",
+        url: $('#inf_material').attr('data-href'),  // or just url: "/my-url/path/"
+        data: {
+            tipo: 'Alquiler',
+            csrfmiddlewaretoken:getCookie('csrftoken')
+        }
+
+    });
+});
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}

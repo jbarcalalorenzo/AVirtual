@@ -1,11 +1,18 @@
+from datetime import date
+from io import BytesIO
+
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.template import RequestContext
 from django.views import generic
 
 from AsociacionVirtual import models
 from AsociacionVirtual import tables
+from AsociacionVirtual.report import PdfPrint
+from django.views.decorators.csrf import csrf_exempt
 from .forms import ContactUsuarioAnonimoForm, ContactUsuarioLoginForm
 
 
@@ -24,14 +31,14 @@ def registro_ok_View(request):
 # Creamos la vista
 class AboutView(generic.View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'Asociacion/about.html')
+        return render(request, 'Asociacion/about.html',context_instance=RequestContext(request))
 
 
 class DocsView(generic.View):
     def get(self, request, *args, **kwargs):
         docs = models.Documentos.objects.all()
         table = tables.DocsTable(docs)
-        return render(request, 'Asociacion/documentos.html',{'table': table})
+        return render(request, 'Asociacion/documentos.html', {'table': table})
 
 
 # Creamos una función para el envió de email
@@ -92,3 +99,27 @@ def search(request):
         socios = models.Socio.objects.all()
         table = tables.DocsTable(socios)
         return render(request, 'search_results.html', {'table': table})
+
+def socios_report(request):
+    if request.method == 'POST':
+        tipo = request.POST.get('tipo')
+        if tipo is not None:
+            response = HttpResponse(content_type='application/pdf')
+            today = date.today()
+            # asociacion = models.Asociacion.objects.all()
+            if tipo == 'Socio':
+                filename = 'impago_socios' + today.strftime('%Y-%m-%d')
+                header = "Impagos de socios"
+            if tipo == "Evento":
+                filename = 'eventos' + today.strftime('%Y-%m-%d')
+                header = "Evento"
+            if tipo == "Alquiler":
+                filename = 'devoluciones' + today.strftime('%Y-%m-%d')
+                header = "Alquiler"
+            response['Content-Disposition'] = 'attachement; filename={0}.pdf'.format(filename)
+            buffer = BytesIO()
+            report = PdfPrint(buffer, 'A4')
+            pdf = report.report(header, tipo)
+            response.write(pdf)
+            return response
+        else:  return render(request, 'Asociacion/error.html')

@@ -11,7 +11,7 @@ class Asociacion(models.Model):
     nif = models.CharField(max_length=11)
     direccion = models.CharField(max_length=255)
     mail = models.CharField(max_length=255)
-
+    logo = models.ImageField(upload_to='media/asociacion/')
 
 class Socio(models.Model):
     nombre = models.CharField(max_length=255)
